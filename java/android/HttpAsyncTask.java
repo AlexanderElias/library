@@ -8,31 +8,27 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import java.net.URL;
 import java.net.URLConnection;
+//Must Import org.apache.commons.io
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
 
 public class ApiAsyncTask extends AsyncTask<String, Integer, JSONObject> {
+      Activity activity;
+      OnTaskCompleted listener;
 
       ProgressBar progressBar;
       View progressLayout;
+      String url;
 
-      AlertDialog.Builder alert;
-
-      Activity activity;
-      public HttpAsyncTask(Activity activity) {
+      public ApiAsyncTask (Activity activity, String url, OnTaskCompleted listener) {
             this.activity = activity;
-
-            alert = new AlertDialog.Builder(activity);
-            alert.setNeutralButton("Close",null);
+            this.url = url;
+            this.listener = listener;
             
-            //setup variables
-            
-            //Progress circle
             progressLayout = activity.findViewById(R.id.progressLayout);
             progressBar = (ProgressBar)activity.findViewById(R.id.progressBar);
       }
-
 
       @Override
       protected void onPreExecute() {
@@ -40,50 +36,60 @@ public class ApiAsyncTask extends AsyncTask<String, Integer, JSONObject> {
             progressBar.setProgress(0);
       }
 
+      @Override
+      protected void onProgressUpdate(Integer... value){
+            progressBar.setProgress(value[0]);
+      }
 
       @Override
       protected JSONObject doInBackground(String... params) {
 
             try {
-                  String webAddress = "";
-                  URL url = new URL(webAddress);
+                  URL Url = new URL(url);
 
-                  URLConnection urlConnection = url.openConnection();
+                  URLConnection urlConnection = Url.openConnection();
                   urlConnection.connect();
 
                   String jsonString = IOUtils.toString(urlConnection.getInputStream());
 
                   return new JSONObject(jsonString);
-            }
-            catch(Exception e) {
-                  Log.e("TAG", "Could not establish URLConnection: " + e.toString());
+
+            } catch (MalformedURLException e) {
+                  e.printStackTrace();
+                  return null;
+            } catch (IOException e) {
+                  e.printStackTrace();
+                  return null;
+            } catch (JSONException e) {
+                  e.printStackTrace();
                   return null;
             }
       }
 
       @Override
       protected void onPostExecute(JSONObject result) {
-
             progressLayout.setVisibility(View.INVISIBLE);
-
-            try {
-              
-                //Assign variables to views
-            }
-            catch (Exception e) {
-                  e.printStackTrace();
-            }
-      }
-
-
-      @Override
-      protected void onProgressUpdate(Integer... value){
-            progressBar.setProgress(value[0]);
+            listener.onTaskCompleted(result);
       }
 }
 
 
 /*
+
+    //Interface for ApiAsyncTask class
+    public interface OnTaskCompleted {
+        void onTaskCompleted(JSONObject result);
+    }
+
+    //Callback for ApiAsyncTask class
+    public class OnTaskCompletedCallback implements OnTaskCompleted{
+        @Override
+        public void onTaskCompleted(JSONObject result) {
+            //Use result
+        }
+    }
+
+
     <!-- progress.xml -->
         <RelativeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
