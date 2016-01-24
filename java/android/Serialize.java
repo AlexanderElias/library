@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
  */
 
 public class Serialize {
-      private final static String FILENAME = "serializedNotes.txt";
+      private final static String FILENAME = "serialized.txt";
       private Activity activity;
       private Context context;
 
