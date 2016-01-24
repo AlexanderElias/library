@@ -21,14 +21,14 @@ public class ApiAsyncTask extends AsyncTask<String, Integer, JSONObject> {
 
       Activity activity;
       public HttpAsyncTask(Activity activity) {
-
             this.activity = activity;
 
             alert = new AlertDialog.Builder(activity);
             alert.setNeutralButton("Close",null);
             
             //setup variables
-
+            
+            //Progress circle
             progressLayout = activity.findViewById(R.id.progressLayout);
             progressBar = (ProgressBar)activity.findViewById(R.id.progressBar);
       }
@@ -81,3 +81,30 @@ public class ApiAsyncTask extends AsyncTask<String, Integer, JSONObject> {
             progressBar.setProgress(value[0]);
       }
 }
+
+
+/*
+    <!-- progress.xml -->
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/progressLayout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:minHeight="20dp"
+            android:maxHeight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            style="@android:style/Widget.ProgressBar.Small"/>
+    </RelativeLayout>
+    
+    <!-- main.xml -->
+        <include
+            layout="@layout/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+*/
