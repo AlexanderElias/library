@@ -5,10 +5,6 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-/**
- * Created by Alexander Elias
- */
-
 public class Serialize {
       private final static String FILENAME = "serialized.txt";
       private Activity activity;
