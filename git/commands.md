@@ -1,7 +1,7 @@
 ## Untrack ##
 
 File:
-git rm -r --cached FILENAME
+`git rm -r --cached FILENAME`
 
 Directories:
 git rm -r --cached .
