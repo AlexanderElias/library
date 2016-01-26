@@ -1,11 +1,11 @@
 ## Untrack ##
 
-File:
+### File: ###
 `git rm -r --cached FILENAME`
 
-Directories:
-git rm -r --cached .
+### Directories: ###
+`git rm -r --cached .`
 
-Then simply:
-git add .
-git commit -m ".gitignore is now working"
+### Then simply: ###
+`git add .`
+`git commit -m ".gitignore is now working"`
