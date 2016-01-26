@@ -5,12 +5,8 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-/**
- * Created by Alexander Elias
- */
-
 public class Serialize {
-      private final static String FILENAME = "serializedNotes.txt";
+      private final static String FILENAME = "serialized.txt";
       private Activity activity;
       private Context context;
 
@@ -70,4 +66,65 @@ public class Serialize {
                   return null;
             }
       }
+      
+      public static class ObjectsList implements Serializable {
+            private static final long serialVersionUID = 8736847634070552888L;
+            private ArrayList<Object> list;
+
+            public void addItem (Object object) {
+                  list.add(object);
+            }
+
+            public void removeItem (Object object) {
+                  list.remove(object);
+            }
+
+            public void setList () {
+                  list = new ArrayList<>();
+            }
+
+            public ArrayList<Object> getList () {
+                  return list;
+            }
+
+      }
 }
+
+/*
+            //
+            //      Write example
+            //
+            Serialize serialize = new Serialize(activity);
+            Serialize.ObjectsList tempObjectsList = new Serialize.ObjectsList();
+
+            if (serialize.fileExists()) {
+                  tempObjectsList = (Serialize.ObjectsList) serialize.read();
+            } else {
+                  tempObjectsList.setList();
+            }
+
+            Serialize.ObjectsList objectsList = tempObjectsList;
+
+            //Add object to list of serializable objects array
+            objectsList.addItem(OBJECT_TO_BE_ADDED);
+
+            //Overwrite serialized file
+            serialize.write(objectsList);
+            
+            
+            
+            
+            //
+            //      Read Example
+            //
+            Serialize serialize = new Serialize(activity);
+
+            if (serialize.fileExists()) {
+                  Serialize.ObjectsList objectsList = (Serialize.ObjectsList) serialize.read();
+
+                  for (int i = 0; i < objectsList.getList().size(); i++) {
+                        ORIGINAL_TYPE obj = (ORIGINAL_TYPE) objectsList.getList().get(i);
+                  }
+            }
+
+*/
