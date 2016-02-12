@@ -18,14 +18,16 @@ public class ViewManager {
                     .replace(containerViewId, fragment, tag)
                     .addToBackStack(null)
                     .commit();
-            
+
       }
 }
 
 /*
-                  Use this in your main activity to control back press
+                  Use this in your main activity
 
             private FragmentManager fragmentManager = getFragmentManager();
+		FragmentManager fragmentManager = getFragmentManager();
+		ViewManager viewManager.replaceContainer(R.id.fragment_container, FRAGMENT, FRAGMENT.TAG);
 
             @Override
             public void onBackPressed() {
@@ -66,4 +68,3 @@ public class ViewManager {
                   return super.onOptionsItemSelected(item);
             }
 */
-
