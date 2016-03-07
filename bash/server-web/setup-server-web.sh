@@ -46,12 +46,9 @@ Y" | adduser $ID
 #
 #	Create a public SSH key
 su $ID
-echo "*"
-echo "* Do not enter a passphrase"
-echo "*"
-echo "id_rsa" | ssh-keygen
+echo "key" | ssh-keygen
 ssh-agent /bin/bash
-ssh-add ~/.ssh/id_rsa
+ssh-add ~/.ssh/key
 #
 #	Exit new user
 exit
@@ -83,13 +80,17 @@ mkdir /var/www
 #
 #	Add user to www-data group
 usermod -a -G www-data $ID
+
+
 #
 #	Set user permission
-. www-permissions.sh
+#
+. permissions-www.sh
+. permissions-nginx.sh
 
 
 #
-#	Create firewall blocks all ports except 80,8081
+#	Create firewall block all ports except 80,7900,7901
 #
 #
 rm /etc/iptables/rules.v4
