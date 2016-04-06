@@ -1,0 +1,19 @@
+# Default server for clients who do not send correct Host header.
+# The underline in the file name makes sure that this file comes first in the dir.
+# Requires a wild card cert to be generated
+
+server {
+	listen 80 default_server;
+	server_name _;
+	return 444;
+}
+server {
+	listen 443 default_server;
+	server_name _;
+
+	ssl on;
+	ssl_certificate /etc/nginx/ssl/wild.crt;
+	ssl_certificate_key /etc/nginx/ssl/wild.key;
+
+	return 444;
+}
